@@ -15,33 +15,33 @@ this.injection = function(filename) {
 }
 
 this.externalBotInjection = function() {
-    //load from server
-    const https = require('https');
-    let url = "https://raw.githubusercontent.com/inspirasiprogrammer/WBOT/master/bot.json";
-
-    let data;
-    https.get(url, (res) => {
-        let body = "";
-
-        res.on("data", (chunk) => {
-            body += chunk;
-        });
-
-        res.on("end", () => {
-            try {
-                botJson = JSON.parse(body);
-                // do something with JSON                          
-            } catch (error) {
-                console.error(error.message);
-            };
-        });
-    }).on("error", (error) => {
-        console.error(error.message);
-    });
-
     return new Promise((resolve, reject) => {
-        if (err) return reject(err);
-        resolve(data);
+        //load from server
+        const https = require('https');
+        let url = "https://raw.githubusercontent.com/inspirasiprogrammer/WBOT/master/bot.json";
+
+        let botJson;
+        https.get(url, (res) => {
+            let body = "";
+
+            res.on("data", (chunk) => {
+                body += chunk;
+            });
+
+            res.on("end", () => {
+                try {
+                    botJson = JSON.parse(body);
+                    // do something with JSON                          
+                } catch (error) {
+                    console.error(error.message);
+                };
+            });
+        }).on("error", (error) => {
+            // console.error(error.message);
+            if (error) return reject(error);
+        });
+
+        resolve(botJson);
     });
 }
 

@@ -49,7 +49,7 @@ async function Main() {
     async function downloadAndStartThings() {
         let botjson = utils.externalBotInjection(); //utils.externalInjection("bot.json");
         var appconfig = await utils.externalBotInjection(); //utils.externalInjection("bot.json");
-        appconfig = JSON.parse(appconfig);
+        //appconfig = JSON.parse(appconfig);
         spinner.start("Downloading chrome\n");
         const browserFetcher = puppeteer.createBrowserFetcher({
             path: process.cwd()
